@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-from __future__ import division
+
 
 from gettext import gettext as _
 import logging
@@ -284,7 +284,7 @@ def xfrange(start, stop, step):
 
     acc = start
 
-    for i in xrange(0, end_loop):
+    for i in range(0, end_loop):
         data.append(acc / magnitude)
         acc += step
 
@@ -655,12 +655,12 @@ class SimplePianoActivity(activity.Activity):
 
     def createPercussionToolbar(self, toolbar_box):
 
-        self.beats_pm_button = IntensitySelector(range(2, 13),
+        self.beats_pm_button = IntensitySelector(list(range(2, 13)),
                                                  4,
                                                  imagefile('beat3.svg'))
         self.tempo_button = \
-            IntensitySelector(range(PLAYER_TEMPO_LOWER,
-                                    PLAYER_TEMPO_UPPER + 1, PLAYER_TEMPO_STEP),
+            IntensitySelector(list(range(PLAYER_TEMPO_LOWER,
+                                    PLAYER_TEMPO_UPPER + 1, PLAYER_TEMPO_STEP)),
                               PLAYER_TEMPO, imagefile('tempo5.png'))
 
         self.complexity_button = IntensitySelector(xfrange(0, 1, 0.1),
@@ -1126,7 +1126,7 @@ class SimplePianoActivity(activity.Activity):
         logging.debug(
             'Pressed Octave: %d Key: %d Letter: %s' %
             (octave_clicked, key_clicked, letter))
-        if letter in LETTERS_TO_KEY_CODES.keys():
+        if letter in list(LETTERS_TO_KEY_CODES.keys()):
             if self.recording:
                 self.recorded_keys.append(
                     [time.time(), octave_clicked, key_clicked, letter])
@@ -1141,7 +1141,7 @@ class SimplePianoActivity(activity.Activity):
             self.recorded_keys.append(
                 [time.time(), octave_clicked, key_clicked, letter, 1])
         if not physicallKey:
-            if letter in LETTERS_TO_KEY_CODES.keys():
+            if letter in list(LETTERS_TO_KEY_CODES.keys()):
                 self.keyboardStandAlone.do_key_release(
                     LETTERS_TO_KEY_CODES[letter])
 
